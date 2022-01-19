@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+		<groupId>com.translator.deutsch</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+
+	<artifactId>ms-deutsch-translator-def</artifactId>
+	<packaging>jar</packaging>
+
+	<name>ms-deutsch-translator-def</name>
+	<description>Deutch Translator definition</description>
+
+
+
+	<properties>
+		<!-- JAVA -->
+		<java.version>17</java.version>
+    	<maven.compiler.source>${java.version}</maven.compiler.source>
+    	<maven.compiler.target>${java.version}</maven.compiler.target>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+	</properties>
+
+	<dependencies>
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+    			<artifactId>openapi-generator-maven-plugin</artifactId>
+    			<!-- RELEASE_VERSION -->
+    			<version>1.0.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<!-- Ubicacion definicion contrato API -->
+							<inputSpec>${project.basedir}/apidef-translator.yml</inputSpec>
+
+							<!-- Ubicacion codigo generado -->
+							<output>${project.build.directory}/generated-sources</output>
+
+							<!-- Lenguaje y libreria utilizado -->
+							<!--<language>cwiki</language>-->
+							<language>spring</language>		
+							<library>spring-cloud</library>	
+
+							<!-- Opciones de paqueteria, pom -->
+							<groupId>com.translator.deutsch</groupId>
+							<artifactId>ms-deutsch-translator</artifactId>
+							<addCompileSourceRoot>false</addCompileSourceRoot>
+							<apiPackage>com.translator.deutsch.controller</apiPackage>
+							<modelPackage>com.translator.deutsch.dto</modelPackage>
+							<invokerPackage>com.translator.deutsch.invoker</invokerPackage>
+						</configuration>
+					</execution>
+				</executions>
+
+			</plugin>	
+		</plugins>
+	</build>
+
+</project>
