@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+  description: Realiza traducciones aleman-español
+  version: 1.0.0
+  title: API TRANSLATOR
+
+servers:
+    - url: http://localhost:{puerto}{context}
+      description: Servidor de Desarrollo
+      variables:
+        puerto:
+          description: Número de puerto
+          enum:
+            - '8885'
+            - '8883'
+          default: '8883'
+        context:
+          description: Contexto del microservicio
+          default: '/'           
+
+paths: 
+  /deutch/{word}:
+    get:        
+      summary: "Traduce la palabra intruducida a español"
+      description:  "Traduce la palabra intruducida a español"
+      parameters:
+        - $ref: "#/components/parameters/WordPath"
+      responses:
+        200:
+          description: OK
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/WordDataDTO"
+components:
+  parameters:
+    WordPath:
+      name: word
+      in: path
+      description: "Palabra en alemán a traducir"
+      example: Mann
+      required: true
+      schema:
+        type: string           
+
+  schemas:
+   TranslateDataDTO:
+    type: object     
+    description: "Datos de una persona relacionada con el hecho"
+    properties:
+      wordType:        
+        type: string
+        description: "Tipo de palabra"
+        example: "Sustantivo"          
+      translation:        
+        type: string
+        description: "traducción de la palabra"
+        example: "Hombre"      
+   WordDataDTO:
+    type: object
+    description: Listado de significados que puede tener una palabra
+    properties:
+      incidentId:
+        type: string
+        description: 'Id referencia del hecho'           
+        example: "12345"  
+      translationList:
+        type: array
+        items:
+          $ref: "#/components/schemas/TranslateDataDTO"                   
+        minItems: 1        
+        description: "Lista de significados que puede tener una palabra"
+ 
